@@ -24,7 +24,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app/
 
 # Create directories for FAISS index and static files
-RUN mkdir -p /app/faiss_index /app/static
+RUN mkdir -p /app/faiss_index /app/staticfiles
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
