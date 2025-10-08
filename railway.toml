@@ -10,3 +10,5 @@ OPENAI_API_KEY = "required"
 DJANGO_SECRET_KEY = "required"
 DEBUG = "False"
 ALLOWED_HOSTS = "*"
+
+

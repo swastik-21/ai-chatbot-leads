@@ -7,3 +7,5 @@ urlpatterns = [
     path('leads/', views.leads_list, name='leads_list'),
     path('', views.frontend_view, name='frontend'),
 ]
+
+

@@ -49,3 +49,5 @@ class Lead(models.Model):
     
     def __str__(self):
         return f"Lead: {self.name or 'Unknown'} ({self.email or 'No email'})"
+
+

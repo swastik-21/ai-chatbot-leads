@@ -89,3 +89,5 @@ class Command(BaseCommand):
                 self.style.ERROR(f'Error seeding FAISS index: {str(e)}')
             )
             raise
+
+

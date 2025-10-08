@@ -288,3 +288,5 @@ class LeadsListTestCase(APITestCase):
         self.assertEqual(len(data), 1)
         self.assertEqual(data[0]['name'], "John Doe")
         self.assertEqual(data[0]['email'], "john@example.com")
+
+

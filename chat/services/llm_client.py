@@ -5,7 +5,7 @@ import json
 from typing import Optional, Dict, Any
 from django.core.cache import cache
 from django.conf import settings
-import openai
+from openai import OpenAI
 
 
 class LLMClient:
@@ -29,8 +29,8 @@ class LLMClient:
                 self._initialized = False
                 return
             
-            # Set the API key for the openai module
-            openai.api_key = self.api_key
+            # Initialize the OpenAI client with the new API
+            self.client = OpenAI(api_key=self.api_key)
             self._initialized = True
             print("OpenAI client initialized successfully")
             
@@ -47,7 +47,7 @@ class LLMClient:
         """Make API call with retry logic."""
         for attempt in range(self.max_retries):
             try:
-                response = openai.ChatCompletion.create(
+                response = self.client.chat.completions.create(
                     model=self.model,
                     messages=messages,
                     temperature=temperature,

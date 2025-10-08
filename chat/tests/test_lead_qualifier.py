@@ -127,3 +127,5 @@ class LeadQualifierTestCase(TestCase):
             self.assertEqual(result['name'], 'John Doe')
             self.assertEqual(result['email'], 'john@example.com')
             self.assertEqual(result['interest_score'], 0.0)  # Default value
+
+
