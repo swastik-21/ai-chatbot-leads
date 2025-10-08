@@ -19,6 +19,7 @@ from .services.lead_qualifier import lead_qualifier
 
 
 @api_view(['POST'])
+@csrf_exempt
 def chat(request):
     """
     Handle chat messages and return AI responses.
