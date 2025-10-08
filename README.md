@@ -1,6 +1,8 @@
 # AI Chatbot Leads
 
-A complete Django project that implements an AI chatbot with lead qualification using LangChain and OpenAI API. This system provides intelligent conversation capabilities with automatic lead detection and qualification.
+A complete Django project that implements an AI chatbot with lead qualification using OpenAI API. This system provides intelligent conversation capabilities with automatic lead detection and qualification.
+
+**Latest Update**: Fixed OpenAI API compatibility and deployment issues.
 
 ## Features
 
