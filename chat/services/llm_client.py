@@ -5,7 +5,7 @@ import json
 from typing import Optional, Dict, Any
 from django.core.cache import cache
 from django.conf import settings
-from openai import OpenAI
+import openai
 
 
 class LLMClient:
@@ -16,12 +16,8 @@ class LLMClient:
         if not self.api_key:
             raise ValueError("OPENAI_API_KEY environment variable is required")
         
-        try:
-            self.client = OpenAI(api_key=self.api_key)
-        except Exception as e:
-            # Fallback for compatibility issues
-            self.client = None
-            print(f"Warning: OpenAI client initialization failed: {e}")
+        # Set the API key for the openai module
+        openai.api_key = self.api_key
         
         self.model = "gpt-3.5-turbo"
         self.max_retries = 3
@@ -34,12 +30,9 @@ class LLMClient:
     
     def _make_api_call(self, messages: list, temperature: float = 0.7) -> str:
         """Make API call with retry logic."""
-        if not self.client:
-            return "I apologize, but I'm experiencing technical difficulties. Please try again later."
-        
         for attempt in range(self.max_retries):
             try:
-                response = self.client.chat.completions.create(
+                response = openai.ChatCompletion.create(
                     model=self.model,
                     messages=messages,
                     temperature=temperature,
@@ -148,14 +141,6 @@ class LLMClient:
         ]
         
         try:
-            if not self.client:
-                return {
-                    'is_lead': False,
-                    'name': None,
-                    'email': None,
-                    'interest_score': 0.0
-                }
-            
             response = self._make_api_call(messages, temperature=0.1)
             
             # Parse JSON response

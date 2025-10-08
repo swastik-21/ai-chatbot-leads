@@ -1,0 +1,12 @@
+# Railway deployment configuration
+[build]
+builder = "dockerfile"
+
+[deploy]
+startCommand = "python manage.py migrate && python manage.py seed_faqs && gunicorn ai_chatbot_leads.wsgi:application --bind 0.0.0.0:$PORT"
+
+[env]
+OPENAI_API_KEY = "required"
+DJANGO_SECRET_KEY = "required"
+DEBUG = "False"
+ALLOWED_HOSTS = "*"

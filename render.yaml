@@ -1,0 +1,16 @@
+# Render deployment configuration
+services:
+  - type: web
+    name: ai-chatbot-leads
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python manage.py migrate && python manage.py seed_faqs && gunicorn ai_chatbot_leads.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_HOSTS
+        value: "*"

@@ -36,7 +36,7 @@ EXPOSE 8000
 RUN echo '#!/bin/bash\n\
 python manage.py migrate\n\
 python manage.py seed_faqs\n\
-python manage.py runserver 0.0.0.0:8000' > /app/start.sh && chmod +x /app/start.sh
+gunicorn ai_chatbot_leads.wsgi:application --bind 0.0.0.0:8000' > /app/start.sh && chmod +x /app/start.sh
 
 # Run the application
 CMD ["/app/start.sh"]
