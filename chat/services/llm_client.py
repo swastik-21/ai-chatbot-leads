@@ -13,15 +13,30 @@ class LLMClient:
     
     def __init__(self):
         self.api_key = settings.OPENAI_API_KEY
-        if not self.api_key:
-            raise ValueError("OPENAI_API_KEY environment variable is required")
-        
-        # Set the API key for the openai module
-        openai.api_key = self.api_key
-        
         self.model = "gpt-3.5-turbo"
         self.max_retries = 3
         self.retry_delay = 1
+        self._initialized = False
+        
+        # Initialize OpenAI client
+        self._initialize_client()
+    
+    def _initialize_client(self):
+        """Initialize the OpenAI client with error handling."""
+        try:
+            if not self.api_key:
+                print("Warning: OPENAI_API_KEY environment variable is not set")
+                self._initialized = False
+                return
+            
+            # Set the API key for the openai module
+            openai.api_key = self.api_key
+            self._initialized = True
+            print("OpenAI client initialized successfully")
+            
+        except Exception as e:
+            print(f"Warning: OpenAI client initialization failed: {e}")
+            self._initialized = False
     
     def _get_cache_key(self, prompt: str, session_id: str) -> str:
         """Generate cache key for prompt and session."""
@@ -58,6 +73,10 @@ class LLMClient:
         Returns:
             Generated reply text
         """
+        # Check if client is initialized
+        if not self._initialized:
+            return "I apologize, but I'm currently unavailable. Please try again later."
+        
         # Check cache first (10 second TTL)
         cache_key = self._get_cache_key(prompt, session_id)
         cached_response = cache.get(cache_key)
@@ -104,6 +123,15 @@ class LLMClient:
         Returns:
             Dictionary with is_lead, name, email, interest_score
         """
+        # Check if client is initialized
+        if not self._initialized:
+            return {
+                'is_lead': False,
+                'name': None,
+                'email': None,
+                'interest_score': 0.0
+            }
+        
         prompt = f"""
         Analyze the following message to determine if it contains lead qualification information.
         Look for:
