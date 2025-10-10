@@ -66,11 +66,19 @@ class Command(BaseCommand):
             },
             {
                 'title': 'Pricing and Packages',
-                'content': 'I offer flexible pricing options: Hourly rates for ongoing projects, Fixed-price packages for specific deliverables, Retainer agreements for long-term partnerships, Project-based pricing for complete solutions, Consultation sessions for planning and strategy, and Custom packages based on your specific needs and budget.'
+                'content': 'I offer competitive pricing for startups and small businesses: Consultation calls: $25/hour, Simple chatbot development: $150-300, Basic automation workflows: $200-400, Custom AI models: $300-600, Full-stack AI projects: $500-1200, Monthly retainer for ongoing support: $200-500/month, Rush projects (24-48 hours): +50% premium, Payment plans available for larger projects. All prices include initial consultation, development, testing, and 30-day support.'
             },
             {
                 'title': 'Technologies and Tools',
                 'content': 'I work with modern technologies: Python (Django, Flask, FastAPI), JavaScript (React, Vue, Node.js), Machine Learning (TensorFlow, PyTorch, Scikit-learn), Cloud platforms (AWS, Google Cloud, Azure), Databases (PostgreSQL, MongoDB, Redis), Automation tools (Botpress, Make.com, Zapier, n8n), AI APIs (OpenAI, Google AI, Anthropic), and DevOps tools (Docker, Kubernetes, CI/CD).'
+            },
+            {
+                'title': 'Budget-Friendly Options',
+                'content': 'Perfect for startups and small businesses: Starter package: $150-300 for basic chatbot or simple automation, Standard package: $300-600 for custom AI models with basic features, Premium package: $600-1200 for full-stack AI applications, Pay-as-you-go: $25/hour for consultation and small tasks, Monthly maintenance: $50-150/month for ongoing support, Special startup discount: 20% off first project, Payment plans: Split into 2-3 installments for projects over $500.'
+            },
+            {
+                'title': 'What\'s Included in Pricing',
+                'content': 'Every project includes: Free initial consultation (30 minutes), Detailed project proposal and timeline, Regular progress updates, Complete testing and quality assurance, Deployment and setup, Documentation and user guide, 30-day bug fix guarantee, Source code delivery, Basic training session, and Ongoing email support. No hidden fees or surprise charges.'
             }
         ]
         
