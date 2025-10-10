@@ -51,3 +51,4 @@ class Lead(models.Model):
         return f"Lead: {self.name or 'Unknown'} ({self.email or 'No email'})"
 
 
+

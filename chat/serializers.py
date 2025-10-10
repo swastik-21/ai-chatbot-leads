@@ -51,3 +51,4 @@ class SessionHistorySerializer(serializers.ModelSerializer):
         fields = ['id', 'created_at', 'updated_at', 'messages']
 
 
+
