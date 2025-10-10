@@ -18,7 +18,7 @@ from .services.retriever import retriever
 from .services.lead_qualifier import lead_qualifier
 
 
-@api_view(['POST'])
+@api_view(['POST', 'HEAD'])
 @csrf_exempt
 def chat(request):
     """
@@ -27,7 +27,13 @@ def chat(request):
     POST /api/chat/
     Body: {"session_id": "uuid", "message": "user message"}
     Returns: {"reply": "AI response", "session_id": "uuid", "lead_qualified": bool}
+    
+    HEAD /api/chat/
+    Returns: Empty response with headers
     """
+    if request.method == 'HEAD':
+        return Response(status=status.HTTP_200_OK)
+    
     serializer = ChatRequestSerializer(data=request.data)
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -93,13 +99,16 @@ def chat(request):
     return Response(response_data, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'HEAD'])
 def session_history(request, session_id):
     """
     Get chat history for a session.
     
     GET /api/session/{session_id}/history/
     Returns: Session with messages
+    
+    HEAD /api/session/{session_id}/history/
+    Returns: Empty response with headers
     """
     try:
         session = Session.objects.get(id=session_id)
@@ -109,30 +118,45 @@ def session_history(request, session_id):
             status=status.HTTP_404_NOT_FOUND
         )
     
+    if request.method == 'HEAD':
+        return Response(status=status.HTTP_200_OK)
+    
     serializer = SessionHistorySerializer(session)
     return Response(serializer.data)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'HEAD'])
 def leads_list(request):
     """
     List all qualified leads.
     
     GET /api/leads/
     Returns: List of leads
+    
+    HEAD /api/leads/
+    Returns: Empty response with headers
     """
+    if request.method == 'HEAD':
+        return Response(status=status.HTTP_200_OK)
+    
     leads = Lead.objects.all()
     serializer = LeadSerializer(leads, many=True)
     return Response(serializer.data)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'HEAD'])
 def frontend_view(request):
     """
     Serve the frontend HTML page.
     
     GET /
     Returns: Frontend HTML
+    
+    HEAD /
+    Returns: Empty response with headers
     """
+    if request.method == 'HEAD':
+        return Response(status=status.HTTP_200_OK)
+    
     from django.shortcuts import render
     return render(request, 'index.html')
