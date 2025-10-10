@@ -91,7 +91,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
-    # Don't include frontend directory in static files - it contains templates
+    BASE_DIR / 'static',  # Include our static directory for JS/CSS files
 ]
 
 # Static files finders
