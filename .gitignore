@@ -53,7 +53,8 @@ Thumbs.db
 
 # Static files (if collected)
 staticfiles/
-static/
+# Don't ignore our source static files
+# static/
 
 # Media files
 media/
