@@ -87,7 +87,7 @@ class LLMClient:
         messages = [
             {
                 "role": "system",
-                "content": "You are a helpful AI assistant for a company. Provide helpful, accurate responses based on the context provided. If you don't know something, say so politely."
+                "content": "You are Swastik's AI assistant. Swastik is a specialized AI developer and freelancer who builds custom AI models, machine learning solutions, chatbots, automation workflows, and full-stack AI projects. You help potential clients understand Swastik's services and expertise. Be helpful, professional, and encourage qualified leads to provide their contact information for consultation."
             }
         ]
         
@@ -133,12 +133,23 @@ class LLMClient:
             }
         
         prompt = f"""
-        Analyze the following message to determine if it contains lead qualification information.
+        Analyze the following message to determine if it contains lead qualification information for Swastik's AI development services.
+        
+        Swastik is an AI developer who provides:
+        - Custom AI model development
+        - Machine learning solutions
+        - Chatbot development
+        - Automation workflows (Botpress, Make.com, Zapier, n8n)
+        - Full-stack AI projects
+        - Data analysis and insights
+        - Business process automation
+        
         Look for:
         1. Name (person's name)
         2. Email address
-        3. Interest in products/services
-        4. Contact intent
+        3. Interest in AI/ML services, chatbots, automation, or development
+        4. Business needs or project requirements
+        5. Contact intent or request for consultation
         
         Message: "{message}"
         
@@ -151,8 +162,11 @@ class LLMClient:
         }}
         
         Rules:
-        - is_lead should be true if the person shows interest in products/services AND provides contact info
-        - interest_score should be 0.0-1.0 based on how interested they seem
+        - is_lead should be true if the person shows interest in AI/ML services AND provides contact info (name or email)
+        - interest_score should be 0.0-1.0 based on how interested they seem in AI development services
+        - High interest (0.7-1.0): Mentions specific AI/ML needs, chatbot requirements, automation needs, or asks for consultation
+        - Medium interest (0.4-0.6): Shows general interest in AI or mentions business needs
+        - Low interest (0.1-0.3): Casual inquiry or general questions
         - Only extract name/email if clearly present
         - Return null for missing fields
         """

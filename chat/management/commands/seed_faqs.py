@@ -22,47 +22,55 @@ class Command(BaseCommand):
             retriever.documents = []
             retriever._load_or_create_index()
         
-        # Sample FAQ documents
+        # Swastik's AI Development Services FAQ
         faq_documents = [
             {
-                'title': 'Product Information',
-                'content': 'Our company offers premium software solutions for businesses. We provide cloud-based platforms, mobile applications, and custom development services. Our products are designed to increase productivity and streamline operations.'
+                'title': 'About Swastik - AI Developer',
+                'content': 'Hi! I am Swastik, a specialized AI developer and freelancer. I build custom AI models, machine learning solutions, and complete AI projects from scratch. I have expertise in Python, TensorFlow, PyTorch, OpenAI API, and various AI frameworks. I can help you implement AI solutions for your business needs.'
             },
             {
-                'title': 'Pricing Plans',
-                'content': 'We offer three pricing tiers: Basic ($29/month), Professional ($79/month), and Enterprise ($199/month). All plans include 24/7 support, regular updates, and cloud storage. Enterprise plans include custom integrations and dedicated account management.'
+                'title': 'AI Development Services',
+                'content': 'I offer comprehensive AI development services including: Custom AI model development, Machine learning solutions, Natural language processing (NLP), Computer vision applications, Chatbot development, AI automation workflows, Data analysis and insights, Predictive analytics, Recommendation systems, and AI integration with existing systems.'
             },
             {
-                'title': 'Support and Contact',
-                'content': 'Our support team is available 24/7 via email, chat, and phone. You can reach us at support@company.com or call 1-800-SUPPORT. We also have a comprehensive knowledge base and video tutorials available on our website.'
+                'title': 'Automation Platform Expertise',
+                'content': 'I specialize in automation platforms including Botpress for conversational AI, Make.com (formerly Integromat) for workflow automation, Zapier for app integrations, n8n for workflow automation, Microsoft Power Automate, and custom automation solutions. I can build complex workflows that connect multiple platforms and automate business processes.'
             },
             {
-                'title': 'Features Overview',
-                'content': 'Key features include: Real-time collaboration, Advanced analytics dashboard, Mobile app for iOS and Android, API access for integrations, Automated backups, Multi-language support, Custom branding options, and Advanced security features including 2FA and SSO.'
+                'title': 'Full-Stack AI Projects',
+                'content': 'I deliver complete AI projects including: Frontend development (React, Vue, Angular), Backend development (Django, Flask, FastAPI, Node.js), Database design and management, API development and integration, Cloud deployment (AWS, Google Cloud, Azure), Mobile app development, and Full-stack AI applications with user interfaces.'
             },
             {
-                'title': 'Getting Started',
-                'content': 'To get started, simply sign up for a free trial account. You can import your existing data, invite team members, and customize your workspace. Our onboarding process includes guided tutorials and a dedicated success manager for Enterprise customers.'
+                'title': 'AI Model Development',
+                'content': 'I develop custom AI models for various use cases: Text classification and sentiment analysis, Image recognition and computer vision, Predictive modeling for business forecasting, Recommendation engines for e-commerce, Fraud detection systems, Customer behavior analysis, Natural language generation, and Custom neural networks for specific requirements.'
             },
             {
-                'title': 'Security and Compliance',
-                'content': 'We take security seriously. Our platform is SOC 2 Type II compliant, uses end-to-end encryption, and follows industry best practices. We offer GDPR compliance tools, data residency options, and regular security audits. All data is backed up daily with 99.9% uptime guarantee.'
+                'title': 'Chatbot and Conversational AI',
+                'content': 'I create intelligent chatbots and conversational AI systems: Customer service chatbots, Lead qualification bots, FAQ automation, Multi-language support, Voice-enabled assistants, Integration with CRM systems, Analytics and performance tracking, and Custom training for domain-specific knowledge.'
             },
             {
-                'title': 'Integration Options',
-                'content': 'Our platform integrates with popular tools including Salesforce, Slack, Microsoft Teams, Google Workspace, Zapier, and many others. We provide REST APIs, webhooks, and pre-built connectors. Custom integrations are available for Enterprise customers.'
+                'title': 'Business Process Automation',
+                'content': 'I automate business processes using AI and automation tools: Email marketing automation, Lead generation and qualification, Customer onboarding workflows, Data processing and analysis, Report generation, Social media management, Inventory management, and Custom business logic automation.'
             },
             {
-                'title': 'Training and Resources',
-                'content': 'We offer comprehensive training resources including live webinars, recorded tutorials, documentation, and certification programs. Our customer success team provides personalized training sessions and ongoing support to ensure your team gets the most value from our platform.'
+                'title': 'Data Analysis and Insights',
+                'content': 'I provide data analysis services: Data cleaning and preprocessing, Statistical analysis and modeling, Business intelligence dashboards, Predictive analytics, Customer segmentation, Market trend analysis, Performance metrics and KPIs, and Data visualization and reporting.'
             },
             {
-                'title': 'Billing and Payments',
-                'content': 'We accept all major credit cards, PayPal, and bank transfers. Billing is monthly or annual with discounts available for annual subscriptions. You can upgrade, downgrade, or cancel your subscription at any time through your account dashboard. Refunds are available within 30 days of purchase.'
+                'title': 'Integration and APIs',
+                'content': 'I specialize in system integrations: RESTful API development, Webhook implementations, Third-party service integrations, Database connections and migrations, Cloud service integrations, Payment gateway integrations, Social media API integrations, and Custom middleware development.'
             },
             {
-                'title': 'System Requirements',
-                'content': 'Our platform is web-based and works on all modern browsers including Chrome, Firefox, Safari, and Edge. Mobile apps are available for iOS 12+ and Android 8+. No special hardware requirements - just a stable internet connection. We recommend at least 4GB RAM and 2GB free disk space for optimal performance.'
+                'title': 'Project Process and Timeline',
+                'content': 'My development process includes: Initial consultation and requirements analysis, Project planning and timeline estimation, Regular progress updates and communication, Testing and quality assurance, Deployment and setup, Documentation and training, Ongoing support and maintenance, and Flexible project management approach.'
+            },
+            {
+                'title': 'Pricing and Packages',
+                'content': 'I offer flexible pricing options: Hourly rates for ongoing projects, Fixed-price packages for specific deliverables, Retainer agreements for long-term partnerships, Project-based pricing for complete solutions, Consultation sessions for planning and strategy, and Custom packages based on your specific needs and budget.'
+            },
+            {
+                'title': 'Technologies and Tools',
+                'content': 'I work with modern technologies: Python (Django, Flask, FastAPI), JavaScript (React, Vue, Node.js), Machine Learning (TensorFlow, PyTorch, Scikit-learn), Cloud platforms (AWS, Google Cloud, Azure), Databases (PostgreSQL, MongoDB, Redis), Automation tools (Botpress, Make.com, Zapier, n8n), AI APIs (OpenAI, Google AI, Anthropic), and DevOps tools (Docker, Kubernetes, CI/CD).'
             }
         ]
         

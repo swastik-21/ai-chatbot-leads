@@ -145,7 +145,7 @@ function showLeadNotification(leadData) {
     const notification = document.createElement('div');
     notification.className = 'success';
     notification.innerHTML = `
-        <strong>New Lead Qualified!</strong><br>
+        <strong>New Potential Client!</strong><br>
         Name: ${leadData.name || 'Unknown'}<br>
         Email: ${leadData.email || 'No email'}<br>
         Interest Score: ${(leadData.interest_score * 100).toFixed(1)}%
