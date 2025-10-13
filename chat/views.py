@@ -18,6 +18,23 @@ from .services.retriever import retriever
 from .services.lead_qualifier import lead_qualifier
 
 
+@api_view(['GET', 'HEAD'])
+def health_check(request):
+    """
+    Simple health check endpoint.
+    
+    GET /health/
+    Returns: {"status": "ok"}
+    
+    HEAD /health/
+    Returns: Empty response with headers
+    """
+    if request.method == 'HEAD':
+        return Response(status=status.HTTP_200_OK)
+    
+    return Response({"status": "ok", "message": "AI Chatbot is running"})
+
+
 @api_view(['POST', 'HEAD'])
 @csrf_exempt
 def chat(request):
