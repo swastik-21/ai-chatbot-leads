@@ -19,6 +19,30 @@ from .services.lead_qualifier import lead_qualifier
 
 
 @api_view(['GET', 'HEAD'])
+def test_endpoint(request):
+    """
+    Simple test endpoint for Upwork link checking.
+    
+    GET /test/
+    Returns: Simple HTML page
+    
+    HEAD /test/
+    Returns: Empty response with headers
+    """
+    if request.method == 'HEAD':
+        response = Response(status=status.HTTP_200_OK)
+        response['Content-Type'] = 'text/html; charset=utf-8'
+        response['Content-Length'] = '50'
+        return response
+    
+    return Response({
+        'status': 'ok',
+        'message': 'AI Chatbot is working',
+        'url': 'https://ai-chatbot-leads-production.up.railway.app/'
+    })
+
+
+@api_view(['GET', 'HEAD'])
 def health_check(request):
     """
     Simple health check endpoint.
