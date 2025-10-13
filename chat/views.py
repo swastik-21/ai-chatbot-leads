@@ -19,6 +19,26 @@ from .services.lead_qualifier import lead_qualifier
 
 
 @api_view(['GET', 'HEAD'])
+def ping_endpoint(request):
+    """
+    Simple ping endpoint for keeping the app alive.
+    
+    GET /ping/
+    Returns: {"status": "pong"}
+    
+    HEAD /ping/
+    Returns: Empty response with headers
+    """
+    if request.method == 'HEAD':
+        response = Response(status=status.HTTP_200_OK)
+        response['Content-Type'] = 'application/json'
+        response['Content-Length'] = '20'
+        return response
+    
+    return Response({"status": "pong", "message": "App is alive!"})
+
+
+@api_view(['GET', 'HEAD'])
 def test_endpoint(request):
     """
     Simple test endpoint for Upwork link checking.
