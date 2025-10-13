@@ -11,5 +11,5 @@ jobs:
     steps:
       - name: Ping Render App
         run: |
-          curl -f https://your-app.onrender.com/health/ || exit 1
+          curl -f https://ai-chatbot-leads.onrender.com/ping/ || exit 1
           echo "App is alive!"
