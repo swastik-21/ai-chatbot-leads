@@ -155,17 +155,16 @@ CACHES = {
     }
 }
 
-# Logging
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'INFO',
-    },
-}
+# Railway-specific configuration
+if os.environ.get('RAILWAY_ENVIRONMENT'):
+    # Railway automatically provides PORT environment variable
+    PORT = os.environ.get('PORT', '8000')
+    
+    # Add Railway domain to allowed hosts
+    if os.environ.get('RAILWAY_PUBLIC_DOMAIN'):
+        ALLOWED_HOSTS.append(os.environ.get('RAILWAY_PUBLIC_DOMAIN'))
+    
+    # Railway-specific database configuration
+    if os.environ.get('DATABASE_URL'):
+        import dj_database_url
+        DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))

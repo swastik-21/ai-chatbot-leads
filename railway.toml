@@ -3,7 +3,7 @@
 builder = "dockerfile"
 
 [deploy]
-startCommand = "gunicorn ai_chatbot_leads.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 --workers 1"
+startCommand = "python manage.py migrate && python manage.py seed_faqs && gunicorn ai_chatbot_leads.wsgi:application --bind 0.0.0.0:8000 --timeout 120 --workers 1"
 
 [env]
 OPENAI_API_KEY = "required"
