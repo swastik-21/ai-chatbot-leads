@@ -58,22 +58,28 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ai_chatbot_leads.wsgi.application'
 
 # Database
-# Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('PGDATABASE', 'railway'),
-        'USER': os.environ.get('PGUSER', 'postgres'),
-        'PASSWORD': os.environ.get('PGPASSWORD', ''),
-        'HOST': os.environ.get('PGHOST', 'localhost'),
-        'PORT': os.environ.get('PGPORT', '5432'),
+# Railway PostgreSQL configuration
+if os.environ.get('DATABASE_URL'):
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
-
-# Fallback to SQLite for local development
-if not os.environ.get('PGHOST'):
+elif os.environ.get('PGHOST'):
+    # Railway PostgreSQL with individual variables
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('PGDATABASE', 'railway'),
+            'USER': os.environ.get('PGUSER', 'postgres'),
+            'PASSWORD': os.environ.get('PGPASSWORD', ''),
+            'HOST': os.environ.get('PGHOST', 'localhost'),
+            'PORT': os.environ.get('PGPORT', '5432'),
+        }
+    }
+else:
+    # Fallback to SQLite for local development
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -155,16 +161,17 @@ CACHES = {
     }
 }
 
-# Railway-specific configuration
-if os.environ.get('RAILWAY_ENVIRONMENT'):
-    # Railway automatically provides PORT environment variable
-    PORT = os.environ.get('PORT', '8000')
-    
-    # Add Railway domain to allowed hosts
-    if os.environ.get('RAILWAY_PUBLIC_DOMAIN'):
-        ALLOWED_HOSTS.append(os.environ.get('RAILWAY_PUBLIC_DOMAIN'))
-    
-    # Railway-specific database configuration
-    if os.environ.get('DATABASE_URL'):
-        import dj_database_url
-        DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
