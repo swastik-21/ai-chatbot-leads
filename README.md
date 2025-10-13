@@ -65,7 +65,7 @@ curl -X POST http://localhost:8000/api/chat/ \
 
 ## Notes
 
-- Uses GPT-3.5-turbo (cheap)
+- Uses GPT-3.5-turbo
 - Stores leads when someone gives name + email
 - FAQ data gets loaded automatically
 - Works with Docker
