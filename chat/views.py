@@ -182,6 +182,8 @@ def frontend_view(request):
         # Copy all headers from the template response
         for header, value in template_response.items():
             response[header] = value
+        # Set the correct content-length
+        response['Content-Length'] = str(len(template_response.content))
         return response
     
     return render(request, 'index.html')
