@@ -177,13 +177,11 @@ def frontend_view(request):
     
     if request.method == 'HEAD':
         # For HEAD requests, render the template to get proper headers
-        # but return empty content
         template_response = render(request, 'index.html')
         response = HttpResponse(status=200)
-        # Copy important headers from the template response
+        # Copy all headers from the template response
         for header, value in template_response.items():
-            if header.lower() in ['content-type', 'content-length']:
-                response[header] = value
+            response[header] = value
         return response
     
     return render(request, 'index.html')
