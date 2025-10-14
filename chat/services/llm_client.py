@@ -46,14 +46,21 @@ class LLMClient:
     def _get_quick_response(self, prompt: str) -> Optional[str]:
         """Get quick response for common questions without API call."""
         quick_responses = {
-            'hi': "Hello! I'm Swastik's AI assistant. I can help you learn about our AI development services including custom AI models, chatbots, automation workflows, and full-stack AI projects. How can I assist you today?",
-            'hello': "Hello! I'm Swastik's AI assistant. I can help you learn about our AI development services including custom AI models, chatbots, automation workflows, and full-stack AI projects. How can I assist you today?",
-            'what services': "Swastik offers comprehensive AI development services: Custom AI models ($300-600), Chatbot development ($150-300), Automation workflows ($200-400), Full-stack AI projects ($500-1200), Data analysis, and Business process automation. All with budget-friendly pricing perfect for startups!",
-            'pricing': "Swastik offers budget-friendly pricing: Simple chatbot development ($150-300), Basic automation workflows ($200-400), Custom AI models ($300-600), Full-stack AI projects ($500-1200), Monthly maintenance ($50-150/month), and 20% startup discount on first project!",
-            'how much': "Swastik's pricing starts from $150 for simple chatbots, $200-400 for automation workflows, $300-600 for custom AI models, and $500-1200 for full-stack AI projects. Perfect for startups with payment plans available!",
-            'contact': "You can contact Swastik through his Upwork profile: https://www.upwork.com/freelancers/~01a3695131c30e858f or GitHub: https://github.com/swastik-21. He offers free 30-minute consultations!",
-            'hire': "To hire Swastik, visit his Upwork profile: https://www.upwork.com/freelancers/~01a3695131c30e858f. He offers free consultations and specializes in budget-friendly AI solutions for startups and small businesses!",
-            'upwork': "Swastik's Upwork profile: https://www.upwork.com/freelancers/~01a3695131c30e858f. Check out his reviews and portfolio for AI development, chatbots, and automation projects!"
+            'hi': "Hello! I'm Swastik's AI assistant. How can I help you today?",
+            'hello': "Hello! I'm Swastik's AI assistant. How can I help you today?",
+            'what services': "Swastik offers: Chatbots ($150-300), Automation ($200-400), AI models ($300-600), Full-stack projects ($500-1200). Budget-friendly for startups!",
+            'pricing': "Pricing: Chatbots $150-300, Automation $200-400, AI models $300-600, Full-stack $500-1200. 20% startup discount!",
+            'how much': "Chatbots: $150-300, Automation: $200-400, AI models: $300-600, Full-stack: $500-1200. Payment plans available!",
+            'contact': "Contact Swastik: https://www.upwork.com/freelancers/~01a3695131c30e858f - Free consultations!",
+            'hire': "Hire Swastik: https://www.upwork.com/freelancers/~01a3695131c30e858f - Budget-friendly AI solutions!",
+            'upwork': "Swastik's Upwork: https://www.upwork.com/freelancers/~01a3695131c30e858f",
+            'chatbot': "Swastik builds custom chatbots for $150-300. Perfect for customer service, lead generation, and automation!",
+            'automation': "Swastik creates automation workflows using Botpress, Make.com, Zapier, n8n. Starting at $200-400!",
+            'ai model': "Swastik develops custom AI models for $300-600. Text classification, sentiment analysis, predictive modeling!",
+            'project': "Swastik delivers full-stack AI projects for $500-1200. Complete solutions with frontend, backend, and AI integration!",
+            'startup': "Perfect for startups! Swastik offers budget-friendly AI solutions with 20% discount and payment plans.",
+            'budget': "Budget-friendly pricing: Chatbots $150-300, Automation $200-400, AI models $300-600. 20% startup discount!",
+            'help': "I can help with: Service information, pricing details, project consultation. What do you need?"
         }
         
         for keyword, response in quick_responses.items():
@@ -62,7 +69,7 @@ class LLMClient:
         
         return None
     
-    def _make_api_call(self, messages: list, temperature: float = 0.7, max_tokens: int = 500) -> str:
+    def _make_api_call(self, messages: list, temperature: float = 0.7, max_tokens: int = 300) -> str:
         """Make API call with optimized settings for faster responses."""
         try:
             response = self.client.chat.completions.create(
@@ -70,7 +77,7 @@ class LLMClient:
                 messages=messages,
                 temperature=temperature,
                 max_tokens=max_tokens,
-                timeout=8,  # 8 second timeout for faster responses
+                timeout=5,  # 5 second timeout for faster responses
                 stream=False
             )
             return response.choices[0].message.content.strip()
@@ -105,11 +112,11 @@ class LLMClient:
         if cached_response:
             return cached_response
         
-        # Build messages
+        # Build messages with shorter system prompt
         messages = [
             {
                 "role": "system",
-                "content": "You are Swastik's AI assistant. Swastik is a specialized AI developer and freelancer who builds custom AI models, machine learning solutions, chatbots, automation workflows, and full-stack AI projects. He offers budget-friendly pricing perfect for startups and small businesses, with packages starting from $150. You help potential clients understand Swastik's services, expertise, and affordable pricing. Be helpful, professional, and encourage qualified leads to provide their contact information for consultation."
+                "content": "You are Swastik's AI assistant. Swastik is an AI developer offering chatbots ($150-300), automation ($200-400), AI models ($300-600), and full-stack projects ($500-1200). Help clients understand services and pricing. Be brief and professional."
             }
         ]
         

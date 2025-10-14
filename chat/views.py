@@ -118,8 +118,8 @@ def chat(request):
         sender='user'
     )
     
-    # Get context from retriever
-    context = retriever.get_context(message_text, top_k=3)
+    # Skip retrieval for faster responses
+    context = None
     
     # Generate AI response
     try:
