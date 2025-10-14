@@ -46,21 +46,36 @@ class LLMClient:
     def _get_quick_response(self, prompt: str) -> Optional[str]:
         """Get quick response for common questions without API call."""
         quick_responses = {
-            'hi': "Hello! I'm Swastik's AI assistant. How can I help you today?",
-            'hello': "Hello! I'm Swastik's AI assistant. How can I help you today?",
-            'what services': "Swastik offers: Chatbots ($150-300), Automation ($200-400), AI models ($300-600), Full-stack projects ($500-1200). Budget-friendly for startups!",
-            'pricing': "Pricing: Chatbots $150-300, Automation $200-400, AI models $300-600, Full-stack $500-1200. 20% startup discount!",
-            'how much': "Chatbots: $150-300, Automation: $200-400, AI models: $300-600, Full-stack: $500-1200. Payment plans available!",
-            'contact': "Contact Swastik: https://www.upwork.com/freelancers/~01a3695131c30e858f - Free consultations!",
-            'hire': "Hire Swastik: https://www.upwork.com/freelancers/~01a3695131c30e858f - Budget-friendly AI solutions!",
+            'hi': "Hello! I'm Swastik's AI assistant. I help businesses with AI solutions like chatbots, automation, and custom AI models. What's your business looking to achieve with AI?",
+            'hello': "Hello! I'm Swastik's AI assistant. I help businesses with AI solutions like chatbots, automation, and custom AI models. What's your business looking to achieve with AI?",
+            'what services': "Swastik offers: Chatbots ($150-300), Automation ($200-400), AI models ($300-600), Full-stack projects ($500-1200). What type of project are you considering?",
+            'pricing': "Pricing: Chatbots $150-300, Automation $200-400, AI models $300-600, Full-stack $500-1200. What's your budget range for this project?",
+            'how much': "Chatbots: $150-300, Automation: $200-400, AI models: $300-600, Full-stack: $500-1200. What's your timeline and budget for this project?",
+            'contact': "Contact Swastik: https://www.upwork.com/freelancers/~01a3695131c30e858f - Free consultations! What's your project timeline?",
+            'hire': "Hire Swastik: https://www.upwork.com/freelancers/~01a3695131c30e858f - Budget-friendly AI solutions! What's your project about?",
             'upwork': "Swastik's Upwork: https://www.upwork.com/freelancers/~01a3695131c30e858f",
-            'chatbot': "Swastik builds custom chatbots for $150-300. Perfect for customer service, lead generation, and automation!",
-            'automation': "Swastik creates automation workflows using Botpress, Make.com, Zapier, n8n. Starting at $200-400!",
-            'ai model': "Swastik develops custom AI models for $300-600. Text classification, sentiment analysis, predictive modeling!",
-            'project': "Swastik delivers full-stack AI projects for $500-1200. Complete solutions with frontend, backend, and AI integration!",
-            'startup': "Perfect for startups! Swastik offers budget-friendly AI solutions with 20% discount and payment plans.",
-            'budget': "Budget-friendly pricing: Chatbots $150-300, Automation $200-400, AI models $300-600. 20% startup discount!",
-            'help': "I can help with: Service information, pricing details, project consultation. What do you need?"
+            'chatbot': "Swastik builds custom chatbots for $150-300. What's your main use case - customer service, lead generation, or sales support?",
+            'automation': "Swastik creates automation workflows using Botpress, Make.com, Zapier, n8n. Starting at $200-400! What processes do you want to automate?",
+            'ai model': "Swastik develops custom AI models for $300-600. Text classification, sentiment analysis, predictive modeling! What data do you have?",
+            'project': "Swastik delivers full-stack AI projects for $500-1200. Complete solutions with frontend, backend, and AI integration! What's your project scope?",
+            'startup': "Perfect for startups! Swastik offers budget-friendly AI solutions with 20% discount and payment plans. What's your startup's main challenge?",
+            'budget': "Budget-friendly pricing: Chatbots $150-300, Automation $200-400, AI models $300-600. 20% startup discount! What's your budget range?",
+            'business': "Great! What industry is your business in? And what's your main challenge that AI could help solve?",
+            'company': "Excellent! What's your company size and what's your biggest operational challenge right now?",
+            'need': "Perfect! What specific AI solution do you need? And what's your timeline for this project?",
+            'want': "Great! What's your budget range for this project? And when do you need it completed?",
+            'looking': "Excellent! What's your business type and what's your main goal with AI?",
+            'interested': "Perfect! What's your project about and what's your budget range?",
+            'considering': "Great! What's your timeline for this project and what's your main challenge?",
+            'thinking': "Excellent! What's your business and what specific AI solution are you thinking about?",
+            'planning': "Perfect! What's your project scope and what's your budget range?",
+            'timeline': "Great! What's your project about and what's your budget range?",
+            'budget': "Perfect! What's your project scope and what's your timeline?",
+            'cost': "Excellent! What's your project about and what's your timeline?",
+            'price': "Great! What's your project scope and what's your timeline?",
+            'when': "Perfect! What's your project about and what's your budget range?",
+            'how long': "Excellent! What's your project scope and what's your budget range?",
+            'help': "I can help with: Service information, pricing details, project consultation. What specific challenge is your business facing?"
         }
         
         for keyword, response in quick_responses.items():
@@ -116,7 +131,7 @@ class LLMClient:
         messages = [
             {
                 "role": "system",
-                "content": "You are Swastik's AI assistant. Swastik is an AI developer offering chatbots ($150-300), automation ($200-400), AI models ($300-600), and full-stack projects ($500-1200). Help clients understand services and pricing. Be brief and professional."
+                "content": "You are Swastik's AI assistant. Swastik is an AI developer offering chatbots ($150-300), automation ($200-400), AI models ($300-600), and full-stack projects ($500-1200). Help clients understand services and pricing. Be brief, professional, and ask qualifying questions like: What's your business? What's your budget? What's your timeline? What's your main challenge? Always encourage them to provide contact info for consultation."
             }
         ]
         
