@@ -337,6 +337,44 @@
             transform: translateY(-1px);
         }
 
+        .services-card {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .services-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .service-item:last-child {
+            border-bottom: none;
+        }
+
+        .service-icon {
+            font-size: 20px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .service-text {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
         .success {
             background: var(--success-color);
             color: white;
@@ -412,22 +450,6 @@
             </div>
 
             <div class="sidebar">
-                <div class="status-card">
-                    <h3>Session Status</h3>
-                    <div class="status-item">
-                        <span class="status-label">Session ID:</span>
-                        <span class="status-value" id="sessionId">Not started</span>
-                    </div>
-                    <div class="status-item">
-                        <span class="status-label">Messages:</span>
-                        <span class="status-value" id="messageCount">0</span>
-                    </div>
-                    <div class="status-item">
-                        <span class="status-label">Leads Found:</span>
-                        <span class="status-value" id="leadsCount">0</span>
-                    </div>
-                </div>
-
                 <div class="profile-card">
                     <h3>About Swastik</h3>
                     <p>Specialized AI developer and freelancer with expertise in custom AI models, chatbots, automation workflows, and full-stack AI projects.</p>
@@ -438,6 +460,26 @@
                         <a href="https://github.com/swastik-21" target="_blank" class="profile-link">
                             💻 GitHub Portfolio
                         </a>
+                    </div>
+                </div>
+
+                <div class="services-card">
+                    <h3>AI Services</h3>
+                    <div class="service-item">
+                        <span class="service-icon">🤖</span>
+                        <span class="service-text">Custom Chatbots</span>
+                    </div>
+                    <div class="service-item">
+                        <span class="service-icon">⚡</span>
+                        <span class="service-text">AI Automation</span>
+                    </div>
+                    <div class="service-item">
+                        <span class="service-icon">🧠</span>
+                        <span class="service-text">AI Models</span>
+                    </div>
+                    <div class="service-item">
+                        <span class="service-icon">🔗</span>
+                        <span class="service-text">System Integration</span>
                     </div>
                 </div>
             </div>
