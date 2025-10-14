@@ -134,20 +134,9 @@ def chat(request):
         sender='assistant'
     )
     
-    # Qualify lead
-    lead_data = lead_qualifier.qualify_lead(message_text)
+    # Skip lead qualification for faster responses
+    lead_data = None
     lead_qualified = False
-    
-    if lead_qualifier.should_save_lead(lead_data):
-        # Save lead
-        lead = Lead.objects.create(
-            name=lead_data.get('name'),
-            email=lead_data.get('email'),
-            interest_score=lead_data.get('interest_score', 0.0),
-            source_session=session,
-            notes=f"Qualified from message: {message_text[:200]}"
-        )
-        lead_qualified = True
     
     # Prepare response
     response_data = {
