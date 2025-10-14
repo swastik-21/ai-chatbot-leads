@@ -12,122 +12,247 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-tertiary: #3a3a3a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent-color: #4f46e5;
+            --accent-hover: #4338ca;
+            --border-color: #404040;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-color: #4f46e5;
+            --accent-hover: #4338ca;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
-            padding: 20px;
+            transition: all 0.3s ease;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-            height: calc(100vh - 40px);
+            padding: 20px;
         }
 
-        .chat-section {
-            background: white;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--bg-secondary);
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .header-left h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .header-left p {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .upwork-link {
+            background: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .upwork-link:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+
+        .chat-container {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            height: 600px;
         }
 
         .chat-header {
-            background: #4f46e5;
-            color: white;
             padding: 20px;
-            text-align: center;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .chat-header h1 {
-            font-size: 24px;
+        .chat-header h2 {
+            font-size: 20px;
             font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .chat-header p {
+            font-size: 14px;
+            color: var(--text-secondary);
         }
 
         .chat-messages {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
-            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .message {
-            margin-bottom: 15px;
             display: flex;
-            align-items: flex-start;
+            gap: 10px;
+            max-width: 80%;
         }
 
         .message.user {
-            justify-content: flex-end;
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message.assistant {
+            align-self: flex-start;
         }
 
         .message-content {
-            max-width: 70%;
+            background: var(--bg-tertiary);
             padding: 12px 16px;
-            border-radius: 18px;
-            word-wrap: break-word;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            font-size: 14px;
+            line-height: 1.5;
         }
 
         .message.user .message-content {
-            background: #4f46e5;
+            background: var(--accent-color);
             color: white;
         }
 
-        .message.assistant .message-content {
-            background: white;
-            border: 1px solid #e2e8f0;
-            color: #334155;
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 12px;
+            color: white;
+        }
+
+        .message.user .message-avatar {
+            background: var(--text-secondary);
         }
 
         .chat-input {
             padding: 20px;
-            background: white;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .input-group {
+            background: var(--bg-tertiary);
+            border-top: 1px solid var(--border-color);
             display: flex;
             gap: 10px;
         }
 
-        .input-group input {
+        .message-input {
             flex: 1;
             padding: 12px 16px;
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            font-size: 16px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 14px;
             outline: none;
-            transition: border-color 0.2s;
         }
 
-        .input-group input:focus {
-            border-color: #4f46e5;
+        .message-input:focus {
+            border-color: var(--accent-color);
         }
 
-        .input-group button {
-            padding: 12px 24px;
-            background: #4f46e5;
+        .send-button {
+            background: var(--accent-color);
             color: white;
             border: none;
+            padding: 12px 20px;
             border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
-        .input-group button:hover {
-            background: #4338ca;
+        .send-button:hover:not(:disabled) {
+            background: var(--accent-hover);
         }
 
-        .input-group button:disabled {
-            background: #9ca3af;
+        .send-button:disabled {
+            background: var(--text-secondary);
             cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 10px;
+            color: var(--text-secondary);
+            font-style: italic;
         }
 
         .sidebar {
@@ -136,152 +261,214 @@
             gap: 20px;
         }
 
-        .leads-section {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .status-card {
+            background: var(--bg-secondary);
             padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
         }
 
-        .leads-section h2 {
-            color: #1f2937;
+        .status-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
             margin-bottom: 15px;
-            font-size: 20px;
-        }
-
-        .lead-item {
-            background: #f0f9ff;
-            border: 1px solid #0ea5e9;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
-        }
-
-        .lead-name {
-            font-weight: 600;
-            color: #0c4a6e;
-        }
-
-        .lead-email {
-            color: #0369a1;
-            font-size: 14px;
-        }
-
-        .lead-score {
-            color: #7c3aed;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .status-section {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
-
-        .status-section h3 {
-            color: #1f2937;
-            margin-bottom: 10px;
         }
 
         .status-item {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 10px;
+            font-size: 14px;
         }
 
-        .status-item:last-child {
-            border-bottom: none;
+        .status-label {
+            color: var(--text-secondary);
         }
 
-        .loading {
-            display: none;
+        .status-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .profile-card {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
             text-align: center;
-            color: #6b7280;
-            font-style: italic;
         }
 
-        .error {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            color: #dc2626;
-            padding: 12px;
-            border-radius: 8px;
+        .profile-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .profile-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
             margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .profile-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .profile-link {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .profile-link:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-1px);
         }
 
         .success {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            color: #16a34a;
-            padding: 12px;
+            background: var(--success-color);
+            color: white;
+            padding: 12px 16px;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .error {
+            background: var(--error-color);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
         }
 
         @media (max-width: 768px) {
-            .container {
+            .main-content {
                 grid-template-columns: 1fr;
-                height: auto;
             }
             
-            .chat-section {
-                height: 70vh;
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .header-right {
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="chat-section">
-            <div class="chat-header">
+        <div class="header">
+            <div class="header-left">
                 <h1>Swastik - AI Developer</h1>
-                <p style="font-size: 14px; margin-top: 5px; opacity: 0.9;">Custom AI Models • Chatbots • Automation • Full-Stack AI Projects</p>
+                <p>Custom AI Models • Chatbots • Automation • Full-Stack AI Projects</p>
             </div>
-            <div class="chat-messages" id="chatMessages">
-                <div class="message assistant">
-                    <div class="message-content">
-                        Hello! I'm Swastik's AI assistant. I can help you learn about our AI development services including custom AI models, chatbots, automation workflows, and full-stack AI projects. How can I assist you today?
-                    </div>
-                </div>
-            </div>
-            <div class="loading" id="loading">AI is thinking...</div>
-            <div class="chat-input">
-                <div class="input-group">
-                    <input type="text" id="messageInput" placeholder="Type your message..." maxlength="2000">
-                    <button id="sendButton" onclick="sendMessage()">Send</button>
-                </div>
+            <div class="header-right">
+                <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+                <a href="https://www.upwork.com/freelancers/~01a3695131c30e858f" target="_blank" class="upwork-link">
+                    📋 Hire Me on Upwork
+                </a>
             </div>
         </div>
 
-        <div class="sidebar">
-            <div class="status-section">
-                <h3>Session Status</h3>
-                <div class="status-item">
-                    <span>Session ID:</span>
-                    <span id="sessionId">Not started</span>
+        <div class="main-content">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2>AI Chatbot Assistant</h2>
+                    <p>Ask me about AI development, chatbots, automation, or any tech project!</p>
                 </div>
-                <div class="status-item">
-                    <span>Messages:</span>
-                    <span id="messageCount">0</span>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant">
+                        <div class="message-avatar">AI</div>
+                        <div class="message-content">
+                            Hello! I'm Swastik's AI assistant. I can help you learn about our AI development services including custom AI models, chatbots, automation workflows, and full-stack AI projects. How can I assist you today?
+                        </div>
+                    </div>
                 </div>
-                <div class="status-item">
-                    <span>Leads Found:</span>
-                    <span id="leadsCount">0</span>
+                
+                <div class="loading" id="loading">AI is thinking...</div>
+                
+                <div class="chat-input">
+                    <input type="text" id="messageInput" class="message-input" placeholder="Type your message here..." maxlength="2000">
+                    <button id="sendButton" class="send-button">Send</button>
                 </div>
             </div>
 
-            <div class="leads-section">
-                <h2>Potential Clients</h2>
-                <div id="leadsList">
-                    <p style="color: #6b7280; text-align: center;">No leads yet</p>
+            <div class="sidebar">
+                <div class="status-card">
+                    <h3>Session Status</h3>
+                    <div class="status-item">
+                        <span class="status-label">Session ID:</span>
+                        <span class="status-value" id="sessionId">Not started</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Messages:</span>
+                        <span class="status-value" id="messageCount">0</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Leads Found:</span>
+                        <span class="status-value" id="leadsCount">0</span>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <h3>About Swastik</h3>
+                    <p>Specialized AI developer and freelancer with expertise in custom AI models, chatbots, automation workflows, and full-stack AI projects.</p>
+                    <div class="profile-links">
+                        <a href="https://www.upwork.com/freelancers/~01a3695131c30e858f" target="_blank" class="profile-link">
+                            📋 View Upwork Profile
+                        </a>
+                        <a href="https://github.com/swastik-21" target="_blank" class="profile-link">
+                            💻 GitHub Portfolio
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="{% static 'js/app.js' %}"></script>
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '🌙 Dark';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeToggle.textContent = '☀️ Light';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.setAttribute('data-theme', savedTheme);
+            const themeToggle = document.querySelector('.theme-toggle');
+            themeToggle.textContent = savedTheme === 'light' ? '☀️ Light' : '🌙 Dark';
+        });
+    </script>
 </body>
 </html>
