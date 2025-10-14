@@ -43,27 +43,44 @@ class LLMClient:
         content = f"{prompt}:{session_id}"
         return f"llm_cache:{hashlib.md5(content.encode()).hexdigest()}"
     
-    def _make_api_call(self, messages: list, temperature: float = 0.7) -> str:
-        """Make API call with retry logic."""
-        for attempt in range(self.max_retries):
-            try:
-                response = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=messages,
-                    temperature=temperature,
-                    max_tokens=1000
-                )
-                return response.choices[0].message.content.strip()
-            except Exception as e:
-                if attempt == self.max_retries - 1:
-                    raise e
-                time.sleep(self.retry_delay * (2 ** attempt))
+    def _get_quick_response(self, prompt: str) -> Optional[str]:
+        """Get quick response for common questions without API call."""
+        quick_responses = {
+            'hi': "Hello! I'm Swastik's AI assistant. I can help you learn about our AI development services including custom AI models, chatbots, automation workflows, and full-stack AI projects. How can I assist you today?",
+            'hello': "Hello! I'm Swastik's AI assistant. I can help you learn about our AI development services including custom AI models, chatbots, automation workflows, and full-stack AI projects. How can I assist you today?",
+            'what services': "Swastik offers comprehensive AI development services: Custom AI models ($300-600), Chatbot development ($150-300), Automation workflows ($200-400), Full-stack AI projects ($500-1200), Data analysis, and Business process automation. All with budget-friendly pricing perfect for startups!",
+            'pricing': "Swastik offers budget-friendly pricing: Simple chatbot development ($150-300), Basic automation workflows ($200-400), Custom AI models ($300-600), Full-stack AI projects ($500-1200), Monthly maintenance ($50-150/month), and 20% startup discount on first project!",
+            'how much': "Swastik's pricing starts from $150 for simple chatbots, $200-400 for automation workflows, $300-600 for custom AI models, and $500-1200 for full-stack AI projects. Perfect for startups with payment plans available!",
+            'contact': "You can contact Swastik through his Upwork profile: https://www.upwork.com/freelancers/~01a3695131c30e858f or GitHub: https://github.com/swastik-21. He offers free 30-minute consultations!",
+            'hire': "To hire Swastik, visit his Upwork profile: https://www.upwork.com/freelancers/~01a3695131c30e858f. He offers free consultations and specializes in budget-friendly AI solutions for startups and small businesses!",
+            'upwork': "Swastik's Upwork profile: https://www.upwork.com/freelancers/~01a3695131c30e858f. Check out his reviews and portfolio for AI development, chatbots, and automation projects!"
+        }
         
-        raise Exception("Max retries exceeded")
+        for keyword, response in quick_responses.items():
+            if keyword in prompt:
+                return response
+        
+        return None
+    
+    def _make_api_call(self, messages: list, temperature: float = 0.7, max_tokens: int = 500) -> str:
+        """Make API call with optimized settings for faster responses."""
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                timeout=8,  # 8 second timeout for faster responses
+                stream=False
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            # Return quick fallback instead of retrying
+            return "I apologize, but I'm experiencing technical difficulties. Please try again in a moment."
     
     def generate_reply(self, prompt: str, session_id: str, context: Optional[str] = None) -> str:
         """
-        Generate a reply using OpenAI API with caching.
+        Generate a reply using OpenAI API with caching and quick responses.
         
         Args:
             prompt: The user's message
@@ -76,6 +93,11 @@ class LLMClient:
         # Check if client is initialized
         if not self._initialized:
             return "I apologize, but I'm currently unavailable. Please try again later."
+        
+        # Quick responses for common questions
+        quick_responses = self._get_quick_response(prompt.lower())
+        if quick_responses:
+            return quick_responses
         
         # Check cache first (10 second TTL)
         cache_key = self._get_cache_key(prompt, session_id)
@@ -185,7 +207,7 @@ class LLMClient:
         ]
         
         try:
-            response = self._make_api_call(messages, temperature=0.1)
+            response = self._make_api_call(messages, temperature=0.1, max_tokens=200)
             
             # Parse JSON response
             result = json.loads(response)
