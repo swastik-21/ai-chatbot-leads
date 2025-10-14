@@ -134,9 +134,27 @@ def chat(request):
         sender='assistant'
     )
     
-    # Skip lead qualification for faster responses
+    # Simple lead qualification (only for messages with contact info)
     lead_data = None
     lead_qualified = False
+    
+    # Only check for leads if message contains email or phone
+    if '@' in message_text or any(word in message_text.lower() for word in ['email', 'contact', 'hire', 'project', 'budget']):
+        try:
+            lead_data = lead_qualifier.qualify_lead(message_text)
+            if lead_qualifier.should_save_lead(lead_data):
+                # Save lead
+                lead = Lead.objects.create(
+                    name=lead_data.get('name'),
+                    email=lead_data.get('email'),
+                    interest_score=lead_data.get('interest_score', 0.0),
+                    source_session=session,
+                    notes=f"Qualified from message: {message_text[:200]}"
+                )
+                lead_qualified = True
+        except Exception as e:
+            # Skip lead qualification on error to maintain speed
+            pass
     
     # Prepare response
     response_data = {
