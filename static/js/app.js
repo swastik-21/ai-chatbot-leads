@@ -5,24 +5,28 @@ let messageCount = 0;
 let leadsCount = 0;
 
 // DOM elements
-const messageInput = document.getElementById('messageInput');
-const sendButton = document.getElementById('sendButton');
-const chatMessages = document.getElementById('chatMessages');
-const loading = document.getElementById('loading');
-const sessionIdSpan = document.getElementById('sessionId');
-const messageCountSpan = document.getElementById('messageCount');
-const leadsCountSpan = document.getElementById('leadsCount');
-const leadsList = document.getElementById('leadsList');
+let messageInput, sendButton, chatMessages, loading;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
-    messageInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
+    // Get DOM elements
+    messageInput = document.getElementById('messageInput');
+    sendButton = document.getElementById('sendButton');
+    chatMessages = document.getElementById('chatMessages');
+    loading = document.getElementById('loading');
     
-    loadLeads();
+    // Add event listeners
+    if (sendButton) {
+        sendButton.addEventListener('click', sendMessage);
+    }
+    
+    if (messageInput) {
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    }
 });
 
 async function sendMessage() {
@@ -32,13 +36,12 @@ async function sendMessage() {
     // Disable input while processing
     sendButton.disabled = true;
     messageInput.disabled = true;
-    loading.style.display = 'block';
+    if (loading) loading.style.display = 'block';
     
     // Add user message to chat
     addMessage(message, 'user');
     messageInput.value = '';
     messageCount++;
-    updateStatus();
     
     try {
         const requestBody = {
@@ -66,7 +69,6 @@ async function sendMessage() {
         
         // Update session ID
         currentSessionId = data.session_id;
-        sessionIdSpan.textContent = currentSessionId.substring(0, 8) + '...';
         
         // Add AI response
         addMessage(data.reply, 'assistant');
@@ -74,9 +76,7 @@ async function sendMessage() {
         // Check if lead was qualified
         if (data.lead_qualified) {
             leadsCount++;
-            updateStatus();
             showLeadNotification(data.lead_data);
-            loadLeads(); // Refresh leads list
         }
         
     } catch (error) {
@@ -87,13 +87,26 @@ async function sendMessage() {
         // Re-enable input
         sendButton.disabled = false;
         messageInput.disabled = false;
-        loading.style.display = 'none';
+        if (loading) loading.style.display = 'none';
     }
 }
 
 function addMessage(text, sender) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}`;
+    
+    // Add avatar for assistant messages
+    if (sender === 'assistant') {
+        const avatarDiv = document.createElement('div');
+        avatarDiv.className = 'message-avatar';
+        avatarDiv.textContent = 'AI';
+        messageDiv.appendChild(avatarDiv);
+    } else if (sender === 'user') {
+        const avatarDiv = document.createElement('div');
+        avatarDiv.className = 'message-avatar';
+        avatarDiv.textContent = 'You';
+        messageDiv.appendChild(avatarDiv);
+    }
     
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';
@@ -104,41 +117,6 @@ function addMessage(text, sender) {
     
     // Scroll to bottom
     chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-function updateStatus() {
-    messageCountSpan.textContent = messageCount;
-    leadsCountSpan.textContent = leadsCount;
-}
-
-async function loadLeads() {
-    try {
-        const response = await fetch('/api/leads/');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const leads = await response.json();
-        displayLeads(leads);
-        
-    } catch (error) {
-        console.error('Error loading leads:', error);
-    }
-}
-
-function displayLeads(leads) {
-    if (leads.length === 0) {
-        leadsList.innerHTML = '<p style="color: #6b7280; text-align: center;">No leads yet</p>';
-        return;
-    }
-    
-    leadsList.innerHTML = leads.map(lead => `
-        <div class="lead-item">
-            <div class="lead-name">${lead.name || 'Unknown'}</div>
-            <div class="lead-email">${lead.email || 'No email'}</div>
-            <div class="lead-score">Interest: ${(lead.interest_score * 100).toFixed(1)}%</div>
-        </div>
-    `).join('');
 }
 
 function showLeadNotification(leadData) {
@@ -180,16 +158,4 @@ function showError(message) {
     
     // Scroll to bottom
     chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-function getCsrfToken() {
-    // Get CSRF token from cookies
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-        const [name, value] = cookie.trim().split('=');
-        if (name === 'csrftoken') {
-            return value;
-        }
-    }
-    return '';
 }
