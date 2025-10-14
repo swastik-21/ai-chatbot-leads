@@ -418,9 +418,9 @@
                 <p>Custom AI Models • Chatbots • Automation • Full-Stack AI Projects</p>
             </div>
             <div class="header-right">
-                <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+                <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
                 <a href="https://www.upwork.com/freelancers/~01a3695131c30e858f" target="_blank" class="upwork-link">
-                    📋 Hire Me on Upwork
+                    Hire Me on Upwork
                 </a>
             </div>
         </div>
@@ -455,10 +455,10 @@
                     <p>Specialized AI developer and freelancer with expertise in custom AI models, chatbots, automation workflows, and full-stack AI projects.</p>
                     <div class="profile-links">
                         <a href="https://www.upwork.com/freelancers/~01a3695131c30e858f" target="_blank" class="profile-link">
-                            📋 View Upwork Profile
+                            View Upwork Profile
                         </a>
                         <a href="https://github.com/swastik-21" target="_blank" class="profile-link">
-                            💻 GitHub Portfolio
+                            GitHub Portfolio
                         </a>
                     </div>
                 </div>
@@ -466,19 +466,15 @@
                 <div class="services-card">
                     <h3>AI Services</h3>
                     <div class="service-item">
-                        <span class="service-icon">🤖</span>
                         <span class="service-text">Custom Chatbots</span>
                     </div>
                     <div class="service-item">
-                        <span class="service-icon">⚡</span>
                         <span class="service-text">AI Automation</span>
                     </div>
                     <div class="service-item">
-                        <span class="service-icon">🧠</span>
                         <span class="service-text">AI Models</span>
                     </div>
                     <div class="service-item">
-                        <span class="service-icon">🔗</span>
                         <span class="service-text">System Integration</span>
                     </div>
                 </div>
@@ -495,11 +491,11 @@
             
             if (body.getAttribute('data-theme') === 'light') {
                 body.setAttribute('data-theme', 'dark');
-                themeToggle.textContent = '🌙 Dark';
+                themeToggle.textContent = 'Dark';
                 localStorage.setItem('theme', 'dark');
             } else {
                 body.setAttribute('data-theme', 'light');
-                themeToggle.textContent = '☀️ Light';
+                themeToggle.textContent = 'Light';
                 localStorage.setItem('theme', 'light');
             }
         }
@@ -509,7 +505,7 @@
             const savedTheme = localStorage.getItem('theme') || 'dark';
             document.body.setAttribute('data-theme', savedTheme);
             const themeToggle = document.querySelector('.theme-toggle');
-            themeToggle.textContent = savedTheme === 'light' ? '☀️ Light' : '🌙 Dark';
+            themeToggle.textContent = savedTheme === 'light' ? 'Light' : 'Dark';
         });
     </script>
 </body>
